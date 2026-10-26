@@ -1,0 +1,16 @@
+# Environnement Python
+venv/
+__pycache__/
+*.pyc
+
+# Secrets
+.env
+
+# Donnees generees et resultats bruts
+data/
+output/
+results/
+*.csv
+*.jsonl
+*.ndjson
+*.log
