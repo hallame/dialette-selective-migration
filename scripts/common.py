@@ -53,3 +53,20 @@ def connect_lab(with_database=True):
     if with_database:
         cfg["database"] = lab_db_name()
     return pymysql.connect(**cfg)
+
+
+def mongo_db_name():
+    load_env()
+    name = os.environ.get("MONGO_DB_NAME", "dialette_lab")
+    if not name.endswith("_lab"):
+        raise SystemExit(f"Refus : MONGO_DB_NAME={name!r} ne se termine pas par _lab.")
+    return name
+
+
+def connect_mongo():
+    """Retourne (client, base) pour la base MongoDB du labo. Les autres bases du serveur ne sont jamais touchees."""
+    from pymongo import MongoClient
+
+    load_env()
+    client = MongoClient(os.environ.get("MONGO_URI", "mongodb://127.0.0.1:27017"), serverSelectionTimeoutMS=5000)
+    return client, client[mongo_db_name()]
