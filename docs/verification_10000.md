@@ -2,7 +2,7 @@
 
 Distributions : `config/distributions.json` (extraites le 2026-10-26, echantillon : 40 conversations, 161 messages, 456 vues ; base de test, pas de production).
 
-Generation : graine 42, fenetre 365 jours jusqu'au 2026-09-10, duree 8.5 s.
+Generation : graine 42, fenetre 365 jours jusqu'au 2026-09-10, duree 10.8 s.
 
 Anomalies d'integrite : **0**.
 
