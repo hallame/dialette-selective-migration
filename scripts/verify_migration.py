@@ -151,7 +151,7 @@ def main():
     conv_ids = {r[0] for r in _all(src, "SELECT id FROM conversations")}
     widget_ids = {r[0] for r in _all(src, "SELECT id FROM widgets")}
     check("Orphelins MongoDB", "messages sans conversation dans MariaDB (attendu 0)", 0,
-          sum(1 for c in db.messages.distinct("conversation_id") if c not in conv_ids))
+          sum(1 for c in (d["_id"] for d in db.messages.aggregate([{"$group": {"_id": "$conversation_id"}}], allowDiskUse=True)) if c not in conv_ids))
     check("Orphelins MongoDB", "widget_views sans widget dans MariaDB (attendu 0)", 0,
           sum(1 for w in db.widget_views.distinct("widget_id") if w not in widget_ids))
     check("Orphelins MongoDB", "conversation_answers sans conversation dans MariaDB (attendu 0)", 0,
